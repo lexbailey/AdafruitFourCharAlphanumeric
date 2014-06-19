@@ -12,6 +12,9 @@ Basic use is like this:
 
   myDisplay.write("ABCD")
 
+In this example the display is on the address 0x70. This is the default for the backpack module.
+If you have soldered any address jumpers then this value will change. The address is in the range 0x70..0x77.
+
 You can set the display to blink using by setting the display setup register
 
   myDisplay.set_register(myDisplay.FOUR_CHAR_REG_DISP_SET | 

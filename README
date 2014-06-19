@@ -1,0 +1,42 @@
+This is a library written for the Raspberry Pi for controlling an Adafruit four char Alphanumeric display with I2C backpack.
+
+This probably works well with beaglebone too although not tested. May need some alteration to I2C calls to support BBB.
+
+To install, clone this repo and copy AdafruitFourCharAlphanumeric.py into your project directory and then use code like the code in example.py
+
+Basic use is like this:
+
+  from AdafruitFourCharAlphanumeric import FourCharDisplay
+
+  myDisplay = FourCharDisplay(0x70)
+
+  myDisplay.write("ABCD")
+
+You can set the display to blink using by setting the display setup register
+
+  myDisplay.set_register(myDisplay.FOUR_CHAR_REG_DISP_SET | 
+			myDisplay.FOUR_CHAR_DISP_ON | 
+			myDisplay.FOUR_CHAR_DISP_BLINK_1HZ)
+
+The blink options are:
+
+  FOUR_CHAR_DISP_BLINK_OFF
+  FOUR_CHAR_DISP_BLINK_1HZ
+  FOUR_CHAR_DISP_BLINK_2HZ
+  FOUR_CHAR_DISP_BLINK_HALF_HZ
+
+You can also display a custom character by calling write_raw. For example
+
+  myDisplay.write_raw(0, 0b0000000011110111)
+
+Will show an upper case 'A' on character 0.
+The first parameter is the character to which you are writing. This must be in the range 0..3
+
+The write function will pad with extra spaces if the input is not four characters long.
+So...
+
+  myDisplay.write("    ")
+
+is the same as
+
+  myDisplay.write("")
